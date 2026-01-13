@@ -27,7 +27,7 @@ class BaseItem(models.Model):
 
   name = models.CharField(max_length=200, unique=True)
   item_class = models.CharField(max_length=20, choices=ItemClass.choices, default=ItemClass.OTHER)
-  slot = models.CharField(max_length=20, choices=Slot.choices) #eg Ring, Helmet, Bow, etc.
+  slot = models.CharField(max_length=20, choices=Slot.choices, default=Slot.OTHER) #eg Ring, Helmet, Bow, etc.
 
   def __str__(self):
     return self.name
