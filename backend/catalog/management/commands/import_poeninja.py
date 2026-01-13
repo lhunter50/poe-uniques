@@ -17,6 +17,8 @@ from catalog.models import (
     UniqueItemLeaguePresence,
 )
 
+# adding this to test again
+
 POE_NINJA_ITEMOVERVIEW_URL: Final[str] = "https://poe.ninja/api/data/itemoverview"
 
 DEFAULT_TYPES: Final[list[str]] = [
