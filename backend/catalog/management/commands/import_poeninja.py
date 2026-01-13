@@ -15,6 +15,7 @@ from catalog.models import (
     League,
     UniqueItem,
     UniqueItemLeaguePresence,
+    UniqueItemLeagueStats,
 )
 
 # adding this to test again
@@ -41,6 +42,10 @@ class PoeNinjaLine(TypedDict, total=False):
     explicitMods: list[str]
     implicitMods: list[str]
     flavourText: list[str] | str
+
+    chaosValue: float
+    divineValue: float
+    listingCount: int
 
 
 class PoeNinjaPayload(TypedDict):
@@ -177,7 +182,9 @@ class Command(BaseCommand):
         self.stdout.write(self.style.MIGRATE_HEADING(f"Importing league={league_name}, types={types}"))
 
         league_obj, _ = League.objects.get_or_create(name=league_name)
-        now = timezone.now()
+
+        today = timezone.localdate()
+        now_dt = timezone.now()
 
         totals: dict[str, int] = {
             "base_created": 0,
@@ -254,6 +261,22 @@ class Command(BaseCommand):
                             "flavour_text": flavour,
                         },
                     )
+
+                    chaos_value = row.get("chaosValue")
+                    divine_value = row.get("divineValue")
+                    listing_count = row.get("listingCount")
+
+                    UniqueItemLeagueStats.objects.update_or_create(
+                        unique_item=unique_obj,
+                        league=league_obj,
+                        defaults={
+                            "chaos_value": chaos_value,
+                            "divine_value": divine_value,
+                            "listing_count": listing_count,
+                            "last_fetched_at": now_dt
+                        }
+                    )
+
                     if created:
                         totals["unique_created"] += 1
                     else:
@@ -262,10 +285,10 @@ class Command(BaseCommand):
                     pres_obj, pres_created = UniqueItemLeaguePresence.objects.get_or_create(
                         unique_item=unique_obj,
                         league=league_obj,
-                        defaults={"first_seen_at": now, "last_seen_at": now},
+                        defaults={"first_seen_at": today, "last_seen_at": today},
                     )
-                    if not pres_created:
-                        pres_obj.last_seen_at = now
+                    if not pres_created and pres_obj.last_seen_at != today:
+                        pres_obj.last_seen_at = today
                         pres_obj.save(update_fields=["last_seen_at"])
 
                     totals["presence_upserted"] += 1
