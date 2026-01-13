@@ -25,9 +25,23 @@ class BaseItem(models.Model):
     FLASK = "flask", "Flask"
     OTHER = "other", "Other"
 
-  name = models.CharField(max_length=200, unique=True)
+
+  name = models.CharField(max_length=200)
   item_class = models.CharField(max_length=20, choices=ItemClass.choices, default=ItemClass.OTHER)
   slot = models.CharField(max_length=20, choices=Slot.choices, default=Slot.OTHER) #eg Ring, Helmet, Bow, etc.
+
+
+  class Meta:
+    constraints = [
+      models.UniqueConstraint(
+        fields=["name", "item_class"],
+        name="uniq_baseitem_name_class",
+      )
+    ]
+    indexes = [
+      models.Index(fields=["item_class", "slot"]),
+      models.Index(fields=["name"]),
+    ]
 
   def __str__(self):
     return self.name
@@ -55,7 +69,8 @@ class League(models.Model):
   name = models.CharField(max_length=100, unique=True)
   is_active = models.BooleanField(default=False)
 
-  created_at = models.DateTimeField(auto_now=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return self.name
@@ -76,8 +91,8 @@ class UniqueItemLeaguePresence(models.Model):
     related_name="unique_presence"
   )
 
-  first_seen_at = models.DateField(default=timezone.now)
-  last_seen_at = models.DateField(default=timezone.now)
+  first_seen_at = models.DateField(default=timezone.localdate)
+  last_seen_at = models.DateField(default=timezone.localdate)
 
   class Meta:
     constraints = [
