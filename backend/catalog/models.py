@@ -13,14 +13,15 @@ class BaseItem(models.Model):
 
   name = models.CharField(max_length=200, unique=True)
   item_class = models.CharField(max_length=20, choices=ItemClass.choices, default=ItemClass.OTHER)
-  slot = models.FloatField(max_length=100, blank=True, default="") #eg Ring, Helmet, Bow, etc.
+  slot = models.FloatField(max_length=100, null=True, blank=True, default="") #eg Ring, Helmet, Bow, etc.
 
   def __str__(self):
     return self.name
 
 class UniqueItem(models.Model):
-  name = models.CharField(max_length=200, unique=True)
+  name = models.CharField(max_length=200, db_index=True)
   base_item = models.ForeignKey(BaseItem, on_delete=models.PROTECT, related_name="uniques")
+  poe_ninja_id = models.IntegerField(null=True, blank=True, unique=True, db_index=True)
   
   required_level = models.PositiveIntegerField(null=True, blank=True)
   image_url = models.URLField(blank=True, default="")
