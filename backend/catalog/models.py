@@ -108,3 +108,42 @@ class UniqueItemLeaguePresence(models.Model):
   
   def __str__(self):
     return f"{self.unique_item} @ {self.league}"
+  
+
+class UniqueItemLeagueStats(models.Model):
+  unique_item = models.ForeignKey(
+    "UniqueItem",
+    on_delete=models.CASCADE,
+    related_name="league_stats",
+  )
+  league = models.ForeignKey(
+    "League",
+    on_delete=models.CASCADE,
+    related_name="unique_stats",
+  )
+
+  chaos_value = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+  divine_value = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+  listing_count = models.PositiveIntegerField(null=True, blank=True)
+
+  # these are helpful for meta DATA
+  confidence = models.CharField(max_length=20, blank=True, default="")
+  raw = models.JSONField(blank=True, default=dict)
+
+  last_fetched_at = models.DateTimeField(default=timezone.now)
+
+  class Meta:
+    constraints = [
+      models.UniqueConstraint(
+        fields=["unique_item", "league"],
+        name="uniq_uniqueitem_league_stats",
+      )
+    ]
+    indexes = [
+      models.Index(fields=["league", "chaos_value"]),
+      models.Index(fields=["league", "listing_count"]),
+      models.Index(fields=["unique_item", "league"]),
+    ]
+
+  def __str__(self):
+    return f"{self.unique_item} @ {self.league}"
