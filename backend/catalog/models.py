@@ -49,7 +49,7 @@ class BaseItem(models.Model):
 class UniqueItem(models.Model):
   name = models.CharField(max_length=200, db_index=True)
   base_item = models.ForeignKey(BaseItem, on_delete=models.PROTECT, related_name="uniques")
-  poe_ninja_id = models.IntegerField(null=True, blank=True, unique=True, db_index=True)
+  poe_ninja_id = models.PositiveIntegerField(unique=True, db_index=True)
   
   required_level = models.PositiveIntegerField(null=True, blank=True)
   image_url = models.URLField(blank=True, default="")
