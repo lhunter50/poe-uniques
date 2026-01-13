@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Any, Final, Iterable, Iterator, NotRequired, TypedDict, cast
+from typing import Any, Final, Iterator, TypedDict, cast
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
