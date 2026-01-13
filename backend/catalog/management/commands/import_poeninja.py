@@ -101,6 +101,38 @@ def parse_required_level(val: object) -> int | None:
         return None
     return n if n >= 0 else None
 
+def infer_item_class(import_type: str) -> str:
+    t = (import_type or "").lower()
+    if "armour" in t: return BaseItem.ItemClass.ARMOUR
+    if "weapon" in t: return BaseItem.ItemClass.WEAPON
+    if "accessory" in t: return BaseItem.ItemClass.ACCESSORY
+    if "flask" in t: return BaseItem.ItemClass.FLASK
+    if "jewel" in t: return BaseItem.ItemClass.JEWEL
+    return BaseItem.ItemClass.OTHER
+
+def infer_slot(base_name: str, import_type: str) -> str | None:
+    n = (base_name or "").lower()
+    t = (import_type or "").lower()
+
+    if "armour" in t:
+        if "boots" in n: return BaseItem.Slot.BOOTS
+        if "gloves" in n or "gauntlets" in n: return BaseItem.Slot.GLOVES
+        if "helmet" in n or "helm" in n or "hood" in n: return BaseItem.Slot.HELMET
+        if "shield" in n: return BaseItem.Slot.SHIELD
+        return BaseItem.Slot.BODY
+
+    if "accessory" in t:
+        if "belt" in n: return BaseItem.Slot.BELT
+        if "ring" in n: return BaseItem.Slot.RING
+        if "amulet" in n: return BaseItem.Slot.AMULET
+        return BaseItem.Slot.OTHER
+
+    if "weapon" in t: return BaseItem.Slot.WEAPON
+    if "flask" in t: return BaseItem.Slot.FLASK
+    if "jewel" in t: return BaseItem.Slot.JEWEL
+
+    return None
+
 
 class Command(BaseCommand):
     help = "Import uniques/base items from poe.ninja itemoverview endpoints."
@@ -183,10 +215,24 @@ class Command(BaseCommand):
 
                     flavour = to_text(row.get("flavourText"))
 
+                    item_class = infer_item_class(t)
+                    slot = infer_slot(base_name, t)
+
                     base_obj, base_created = BaseItem.objects.get_or_create(
                         name=base_name,
-                        defaults={"item_class": BaseItem.ItemClass.OTHER, "slot": None},
+                        defaults={"item_class": item_class, "slot": slot},
                     )
+
+                    changed = False
+                    if base_obj.item_class == BaseItem.ItemClass.OTHER and item_class != BaseItem.ItemClass.OTHER:
+                        base_obj.item_class = item_class
+                        changed = True
+                    if base_obj.slot in (None, "") and slot:
+                        base_obj.slot = slot
+                        changed = True
+                    if changed:
+                        base_obj.save(update_fields=["item_class", "slot"])
+                    
                     if base_created:
                         totals["base_created"] += 1
                     totals["base_touched"] += 1

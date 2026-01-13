@@ -8,12 +8,26 @@ class BaseItem(models.Model):
     ARMOUR = "armour", "Armour"
     ACCESSORY = "accessory", "Accessory"
     JEWEL = "jewel", "Jewel"
-    FLASK = "flask", "Flase"
+    FLASK = "flask", "Flask"
+    OTHER = "other", "Other"
+
+  class Slot(models.TextChoices):
+    HELMET = "helmet", "Helmet"
+    BODY = "body", "Body Armour"
+    GLOVES = "gloves", "Gloves"
+    BOOTS = "boots", "Boots"
+    SHIELD = "shield", "Shield"
+    WEAPON = "weapon", "Weapon"
+    BELT = "belt", "Belt"
+    RING = "ring", "Ring"
+    AMULET = "amulet", "Amulet"
+    JEWEL = "jewel", "Jewel"
+    FLASK = "flask", "Flask"
     OTHER = "other", "Other"
 
   name = models.CharField(max_length=200, unique=True)
   item_class = models.CharField(max_length=20, choices=ItemClass.choices, default=ItemClass.OTHER)
-  slot = models.FloatField(max_length=100, null=True, blank=True, default="") #eg Ring, Helmet, Bow, etc.
+  slot = models.CharField(max_length=20, choices=Slot.choices) #eg Ring, Helmet, Bow, etc.
 
   def __str__(self):
     return self.name
