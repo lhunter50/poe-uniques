@@ -9,9 +9,14 @@ class BaseItemSerializer(serializers.ModelSerializer):
 class UniqueItemListSerializer(serializers.ModelSerializer):
   base_item = BaseItemSerializer(read_only=True)
 
+  chaos_value = serializers.DecimalField(max_digits=20, decimal_places=2, read_only=True, required=False)
+  divine_value = serializers.DecimalField(max_digits=20, decimal_places=2, read_only=True, required=False)
+  listing_count = serializers.IntegerField(read_only=True, required=False)
+
+
   class Meta:
     model = UniqueItem
-    fields = ["id", "name", "required_level","image_url", "base_item"]
+    fields = ["id", "name", "required_level","image_url", "base_item", "chaos_value", "divine_value", "listing_count"]
 
 class UniqueItemDetailSerializer(serializers.ModelSerializer):
   base_item = BaseItemSerializer(read_only=True) 
