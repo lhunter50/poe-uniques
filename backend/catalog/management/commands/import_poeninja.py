@@ -197,7 +197,7 @@ class Command(BaseCommand):
 
         set_active = bool(opts.get("is_active", True))
 
-        if not dry_run and not set_active:
+        if not dry_run and set_active:
             League.objects.filter(is_active=True).exclude(pk=league_obj.pk).update(is_active=False)
             if not league_obj.is_active:
                 league_obj.is_active=True
