@@ -147,7 +147,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser) -> None:
         parser.add_argument(
             "--league",
-            default="Standard",
+            required=True,
             help="League name (e.g. Standard, Settlers). Default: Standard",
         )
         parser.add_argument(
@@ -167,6 +167,18 @@ class Command(BaseCommand):
             action="store_true",
             help="Fetch/parse but do not write to the DB.",
         )
+        parser.add_argument(
+            "--set-active",
+            action="store_true",
+            default=True,
+            help="Mark this league as active and deactivate other leagues"
+        )
+        parser.add_argument(
+            "--no-set-active",
+            dest="set_active",
+            action="store_false",
+            help="Do not change League.is_active flag"
+        )
 
     def handle(self, *args: object, **opts: object) -> None:
         league_name = str(opts.get("league", "Standard")).strip()
@@ -182,6 +194,14 @@ class Command(BaseCommand):
         self.stdout.write(self.style.MIGRATE_HEADING(f"Importing league={league_name}, types={types}"))
 
         league_obj, _ = League.objects.get_or_create(name=league_name)
+
+        set_active = bool(opts.get("is_active", True))
+
+        if not dry_run and not set_active:
+            League.objects.filter(is_active=True).exclude(pk=league_obj.pk).update(is_active=False)
+            if not league_obj.is_active:
+                league_obj.is_active=True
+                league_obj.save(update_fields=["is_active"])
 
         today = timezone.localdate()
         now_dt = timezone.now()
