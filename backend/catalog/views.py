@@ -55,19 +55,14 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
 
   def get_queryset(self):
     """
-    view=all -> items present in Standard (all)
-    view=current -> items present in CURRENT_LEAGUE
-    view=current_only -> items present in CURRENT_LEAGUE and NOT in Standard (rare occasion)
-    default -> is the same as view=all
+
     """
     league = self._get_league()
     qs = UniqueItem.objects.select_related("base_item").all()
 
-    view = (self.request.query_params.get("view") or "all").strip().lower()
-
     current_presence = UniqueItemLeaguePresence.objects.filter(
       unique_item_id=OuterRef("pk"),
-      league__name = league.id
+      league_id = league.id
     )
 
     qs = qs.annotate(_in_league=Exists(current_presence)).filter(_in_league=True)
