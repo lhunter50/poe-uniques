@@ -52,7 +52,7 @@ class UniqueItem(models.Model):
   poe_ninja_id = models.PositiveIntegerField(unique=True, db_index=True)
   
   required_level = models.PositiveIntegerField(null=True, blank=True)
-  image_url = models.URLField(blank=True, default="")
+  image_url = models.URLField(max_length=500, blank=True, default="")
 
   flavour_text = models.TextField(blank=True, default="")
   raw_mods = models.TextField(blank=True, default="")
