@@ -43,7 +43,15 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
   }
 
   search_fields = ["name", "base_item__name"]
-  ordering_fields = ["name", "required_level", "created_at"]
+  ordering_fields = [
+    "name", 
+    "required_level", 
+    "created_at",
+    "chaos_value",
+    "divine_value",
+    "listing_count",
+  ]
+  
   ordering = ["name"]
 
   def _get_league(self) -> League:
@@ -58,14 +66,15 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
 
     """
     league = self._get_league()
-    qs = UniqueItem.objects.select_related("base_item").all()
+
+    qs = UniqueItem.objects.select_related("base_item")
 
     current_presence = UniqueItemLeaguePresence.objects.filter(
       unique_item_id=OuterRef("pk"),
       league_id = league.id
     )
 
-    qs = qs.annotate(_in_league=Exists(current_presence)).filter(_in_league=True)
+    qs = qs.annotate(_in_league=Exists(current_presence)).filter(in_league=True)
 
     stats_qs = UniqueItemLeagueStats.objects.filter(
       unique_item_id=OuterRef("pk"),
@@ -78,7 +87,7 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
       listing_count=Subquery(stats_qs.values("listing_count")[:1]),
     )
 
-    return qs.order_by("name")
+    return qs
 
   def get_serializer_class(self):
     if self.action == "retrieve":
