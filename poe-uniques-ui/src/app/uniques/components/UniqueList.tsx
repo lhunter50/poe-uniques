@@ -1,4 +1,4 @@
-import type { UniqueItem } from "../../lib/types";
+import type { UniqueItem } from "../../../lib/types";
 import UniqueCard from "./UniqueCard";
 
 export default function UniqueList({ uniques }: { uniques: UniqueItem[] }){

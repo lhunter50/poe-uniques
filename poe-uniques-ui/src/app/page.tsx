@@ -2,7 +2,7 @@ import { getUniques } from "@/lib/api";
 import { qp } from "@/lib/query";
 import FiltersBar from "./uniques/controls/FiltersBar";
 import Pagination from "./uniques/controls/Pagination";
-import UniqueList from "./uniques/UniqueList";
+import UniqueList from "./uniques/components/UniqueList";
 
 export default async function Home({
   searchParams,

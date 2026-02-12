@@ -1,5 +1,6 @@
 import type { UniqueItem } from "@/lib/types";
 import { PoEHeaderBar } from "./PoEHeaderBar";
+import { compactNumber } from "@/lib/format";
 
 export default function UniqueCard({ item }: { item: UniqueItem }) {
   const baseName = item.base_item?.name ?? "Unknown Base";
@@ -37,19 +38,11 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
           </div>
 
           <div>
-            Chaos Value:{" "}
-            <span>
-              {chaos != null ? chaos.toFixed(2) : "—"}
-            </span>{" "}
-            c
+            Chaos Value: {compactNumber(item.chaos_value)} c
           </div>
 
           <div>
-            Divine Value:{" "}
-            <span>
-              {divine != null ? divine.toFixed(2) : "—"}
-            </span>{" "}
-            d
+            Divine Value: {compactNumber(item.divine_value)} d
           </div>
 
           <div>
