@@ -33,6 +33,7 @@ DEFAULT_TYPES: Final[list[str]] = [
 
 class PoeNinjaLine(TypedDict, total=False):
     # Common fields (vary by type)
+    id: int
     name: str
     baseType: str
     typeLine: str
@@ -76,6 +77,21 @@ def coalesce_str(*vals: object) -> str:
         if s:
             return s
     return ""
+
+
+def fetch_base_icon_map(league_name: str) -> dict[str, str]:
+    url = f"{POE_NINJA_ITEMOVERVIEW_URL}?{urlencode({'league': league_name, 'type': 'BaseType'})}"
+    payload = fetch_json(url)
+    icon_map: dict[str, str] = {}
+
+    for row in iter_lines(payload):
+        # BaseType rows typically identify the base by "name"
+        base_name = coalesce_str(row.get("name"), row.get("baseType"), row.get("typeLine"))
+        icon_url = coalesce_str(row.get("icon"))
+        if base_name and icon_url:
+            icon_map[base_name] = icon_url
+
+    return icon_map
 
 
 def to_text(val: object) -> str:
@@ -185,6 +201,7 @@ class Command(BaseCommand):
         types = cast(list[str], opts.get("types", list(DEFAULT_TYPES)))
         sleep_s = float(opts.get("sleep", 0.4) or 0.0)
         dry_run = bool(opts.get("dry_run", False))
+        base_icon_map = fetch_base_icon_map(league_name)
 
         if not league_name:
             raise SystemExit("--league cannot be blank")
@@ -249,7 +266,7 @@ class Command(BaseCommand):
 
                     base_obj, base_created = BaseItem.objects.get_or_create(
                         name=base_name,
-                        defaults={"item_class": item_class, "slot": slot},
+                        defaults={"item_class": item_class, "slot": slot, "icon_url": base_icon_map.get(base_name)},
                     )
 
                     changed = False
@@ -259,8 +276,14 @@ class Command(BaseCommand):
                     if base_obj.slot in (None, "") and slot:
                         base_obj.slot = slot
                         changed = True
+                    
+                    base_icon = base_icon_map.get(base_name)
+                    if base_icon and not base_obj.icon_url:
+                        base_obj.icon_url = base_icon
+                        changed = True
+
                     if changed:
-                        base_obj.save(update_fields=["item_class", "slot"])
+                        base_obj.save(update_fields=["item_class", "slot","icon_url"])
                     
                     if base_created:
                         totals["base_created"] += 1

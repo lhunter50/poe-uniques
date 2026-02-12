@@ -29,7 +29,7 @@ class BaseItem(models.Model):
   name = models.CharField(max_length=200)
   item_class = models.CharField(max_length=20, choices=ItemClass.choices, default=ItemClass.OTHER)
   slot = models.CharField(max_length=20, choices=Slot.choices, default=Slot.OTHER) #eg Ring, Helmet, Bow, etc.
-
+  icon_url = models.URLField(max_length=500, blank=True, null=True)
 
   class Meta:
     constraints = [

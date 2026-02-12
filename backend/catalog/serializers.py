@@ -4,7 +4,7 @@ from .models import BaseItem, UniqueItem
 class BaseItemSerializer(serializers.ModelSerializer):
   class Meta:
     model = BaseItem
-    fields = ["id", "name", "item_class", "slot"]
+    fields = ["id", "name", "item_class", "slot","icon_url"]
 
 class UniqueItemListSerializer(serializers.ModelSerializer):
   base_item = BaseItemSerializer(read_only=True)
