@@ -16,7 +16,7 @@ class UniqueItemListSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = UniqueItem
-    fields = ["id", "name", "required_level","image_url", "base_item", "chaos_value", "divine_value", "listing_count"]
+    fields = ["id", "name", "required_level","image_url", "base_item", "chaos_value", "divine_value", "listing_count","flavour_text"]
 
 class UniqueItemDetailSerializer(serializers.ModelSerializer):
   base_item = BaseItemSerializer(read_only=True) 

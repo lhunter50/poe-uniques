@@ -11,6 +11,7 @@ export type UniqueItem = {
   required_level: number | null;
   image_url: string;
   base_item: BaseItem;
+  flavour_text: string;
 
   chaos_value: string | null;
   divine_value: string | null;
