@@ -162,7 +162,7 @@ class UniqueAncientMeta(models.Model):
 
   pool = models.CharField(max_length=20, choices=Pool.choices, db_index=True)
 
-  tiers = models.CharField(max_length=10, blank=True, null=True)
+  tier = models.CharField(max_length=10, blank=True, null=True)
 
   chance = models.FloatField(blank=True, null=True)
   avg_orbs = models.IntegerField(blank=True, null=True)

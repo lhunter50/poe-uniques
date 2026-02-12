@@ -1,0 +1,317 @@
+[
+  {
+    "name": "Ascent From Flesh",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 44,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Auxium",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 73,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Bated Breath",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 22,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Belt of the Deceiver",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 20,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Binds of Bloody Vengeance",
+    "pool": "belt",
+    "tier": "2",
+    "min_ilvl": 78,
+    "avg_orbs": 656,
+    "chance": 0.00148,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Bisco's Leash",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 30,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Bound Fate",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 49,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Ceinture of Benevolence",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 40,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Chain of Endurance",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 14,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Dyadian Dawn",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 60,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Faminebind",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 18,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Feastbind",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 11,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Gluttony",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 48,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Headhunter",
+    "pool": "belt",
+    "tier": "0",
+    "min_ilvl": 75,
+    "avg_orbs": 24272,
+    "chance": 4e-05,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Immortal Flesh",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 50,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Kaom's Binding",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 57,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Leash of Oblation",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 73,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Mageblood",
+    "pool": "belt",
+    "tier": "0",
+    "min_ilvl": 75,
+    "avg_orbs": 24272,
+    "chance": 4e-05,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Maligaro's Restraint",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 44,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Meginord's Girdle",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 20,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Mother's Embrace",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 40,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Nevalius Inheritance",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 20,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Perandus Blazon",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 20,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Perseverance",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 73,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Prismweave",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 25,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Pyroshock Clasp",
+    "pool": "belt",
+    "tier": "4",
+    "min_ilvl": 54,
+    "avg_orbs": 23,
+    "chance": 0.04364,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Ryslatha's Coil",
+    "pool": "belt",
+    "tier": "1",
+    "min_ilvl": 32,
+    "avg_orbs": 1339,
+    "chance": 0.00073,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Siegebreaker",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 44,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Soul Tether",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 48,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Soulthirst",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 45,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Sunblast",
+    "pool": "belt",
+    "tier": "2",
+    "min_ilvl": 37,
+    "avg_orbs": 656,
+    "chance": 0.00148,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "The Druggery",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 60,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "The Magnate",
+    "pool": "belt",
+    "tier": "2",
+    "min_ilvl": 20,
+    "avg_orbs": 656,
+    "chance": 0.00148,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Umbilicus Immortalis",
+    "pool": "belt",
+    "tier": "3",
+    "min_ilvl": 30,
+    "avg_orbs": 116,
+    "chance": 0.0084,
+    "source": "poeladder (community; Prohibited Library-based)"
+  },
+  {
+    "name": "Wurm's Molt",
+    "pool": "belt",
+    "tier": "5",
+    "min_ilvl": 42,
+    "avg_orbs": 18,
+    "chance": 0.05532,
+    "source": "poeladder (community; Prohibited Library-based)"
+  }
+]
