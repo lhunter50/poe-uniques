@@ -147,3 +147,29 @@ class UniqueItemLeagueStats(models.Model):
 
   def __str__(self):
     return f"{self.unique_item} @ {self.league}"
+  
+
+class UniqueAncientMeta(models.Model):
+  
+  class Pool(models.TextChoices):
+    BELT = 'Belt', "belt"
+
+  unique_item = models.OneToOneField(
+    "UniqueItem",
+    on_delete=models.CASCADE,
+    related_name="ancient_meta",
+  )
+
+  pool = models.CharField(max_length=20, choices=Pool.choices, db_index=True)
+
+  tiers = models.CharField(max_length=10, blank=True, null=True)
+
+  chance = models.FloatField(blank=True, null=True)
+  avg_orbs = models.IntegerField(blank=True, null=True)
+
+  min_ilvl = models.IntegerField(blank=True, null=True)
+  source = models.CharField(max_length=50, blank=True, null=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self) -> str:
+    return f"{self.unique_item.name} ({self.pool})"
