@@ -1,6 +1,7 @@
 import type { UniqueItem } from "@/lib/types";
 import { PoEHeaderBar } from "./PoEHeaderBar";
 import { compactNumber } from "@/lib/format";
+import { PriceLine } from "./PriceLine";
 
 export default function UniqueCard({ item }: { item: UniqueItem }) {
   const baseName = item.base_item?.name ?? "Unknown Base";
@@ -17,6 +18,9 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
         bg-zinc-950/95
         border border-amber-700/60
         shadow-[0_0_0_1px_rgba(0,0,0,0.6),0_16px_40px_rgba(0,0,0,0.55)]
+        hover:-translate-y-px
+        hover:shadow-[0_0_25px_rgba(245,158,11,0.18)]
+        transition-all duration-150
       "
     >
       {/* Title bar */}
@@ -38,11 +42,11 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
           </div>
 
           <div>
-            Chaos Value: {compactNumber(item.chaos_value)} c
+            <PriceLine value={chaos} icon="chaos" />
           </div>
 
           <div>
-            Divine Value: {compactNumber(item.divine_value)} d
+            <PriceLine value={divine} icon="divine"/>
           </div>
 
           <div>
@@ -58,16 +62,29 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
 
         {/* Larger Icon */}
         <div className="flex justify-center">
-          <div className="h-28 w-28 bg-emerald-900/40 border border-amber-700/30 grid place-items-center">
+          <div
+            className="
+              relative
+              h-28 w-28
+              flex items-center justify-center
+              bg-[#0b2a1f]
+              border border-amber-700/40
+              overflow-hidden
+            "
+          >
             {item.image_url ? (
               <img
                 src={item.image_url}
                 alt={item.name}
-                className="h-24 w-24 object-contain"
+                className="
+                  max-h-[90%] max-w-[90%]
+                  object-contain
+                  image-rendering-auto
+                  drop-shadow-[0_0_8px_rgba(0,0,0,0.5)]
+                "
               />
-            ) : (
-              <div className="h-16 w-16 rounded bg-zinc-700/50" />
-            )}
+            ) : null}
+              <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]" />
           </div>
         </div>
 
