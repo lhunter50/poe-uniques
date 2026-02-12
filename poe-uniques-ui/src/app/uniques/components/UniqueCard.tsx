@@ -7,6 +7,7 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
   const baseName = item.base_item?.name ?? "Unknown Base";
   const itemClass = item.base_item?.item_class ?? "item";
   const slot = item.base_item?.slot ?? "";
+  const baseIcon = item.base_item?.icon_url ?? "";
 
   const chaos = item.chaos_value != null ? Number(item.chaos_value) : null;
   const divine = item.divine_value != null ? Number(item.divine_value) : null;
@@ -69,7 +70,7 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
               flex items-center justify-center
               bg-[#0b2a1f]
               border border-amber-700/40
-              overflow-hidden
+              
             "
           >
             {item.image_url ? (
@@ -84,11 +85,62 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
                 "
               />
             ) : null}
-              <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]" />
+
+            {/* Base icon overlay */}
+            {baseIcon ? (
+              <div className="absolute bottom-1 left-1 z-50 group">
+                {/* Small icon */}
+                <div
+                  className="
+                    h-9 w-9
+                    rounded
+                    bg-black/60
+                    ring-1 ring-amber-700/40
+                    flex items-center justify-center
+                    overflow-hidden
+                    cursor-zoom-in
+                  "
+                  title={baseName}
+                >
+                  <img
+                    src={baseIcon}
+                    alt={baseName}
+                    className="h-[85%] w-[85%] object-contain"
+                  />
+                </div>
+
+                {/* Zoom preview */}
+                <div
+                  className="
+                    absolute bottom-full left-1/2 -translate-x-1/2 mb-3
+                    hidden group-hover:flex
+                    flex-col items-center
+                    w-28
+                    px-3 py-3
+                    bg-black/95
+                    ring-1 ring-amber-600
+                    shadow-xl shadow-black/70
+                    rounded
+                    z-999
+                  "
+                >
+                  <img
+                    src={baseIcon}
+                    alt={baseName}
+                    className="h-16 w-16 object-contain"
+                  />
+
+                  <div className="mt-2 text-[12px] text-amber-300 font-semibold text-center wrap-break-words">
+                    {baseName}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]" />
           </div>
         </div>
 
-        {/* Flavour Text (under image like PoE) */}
+        {/* Flavour Text */}
         {item.flavour_text && (
           <>
             <div className="my-4 h-px w-full bg-amber-700/30" />

@@ -3,6 +3,7 @@ export type BaseItem = {
   name: string;
   item_class: string;
   slot: string;
+  icon_url: string;
 }
 
 export type UniqueItem = {
