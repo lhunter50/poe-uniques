@@ -67,7 +67,7 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
     """
     league = self._get_league()
 
-    qs = UniqueItem.objects.select_related("base_item")
+    qs = UniqueItem.objects.select_related("base_item", "ancient_meta")
 
     current_presence = UniqueItemLeaguePresence.objects.filter(
       unique_item_id=OuterRef("pk"),
