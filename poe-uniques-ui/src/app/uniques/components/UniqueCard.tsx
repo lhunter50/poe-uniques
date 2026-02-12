@@ -15,7 +15,7 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
     <div
       className="
         w-full max-w-105
-        bg-zinc-950/95
+        bg-[#0f1319]
         border border-amber-700/60
         shadow-[0_0_0_1px_rgba(0,0,0,0.6),0_16px_40px_rgba(0,0,0,0.55)]
         hover:-translate-y-px
