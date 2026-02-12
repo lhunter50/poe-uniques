@@ -74,7 +74,7 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
       league_id = league.id
     )
 
-    qs = qs.annotate(_in_league=Exists(current_presence)).filter(in_league=True)
+    qs = qs.annotate(_in_league=Exists(current_presence)).filter(_in_league=True)
 
     stats_qs = UniqueItemLeagueStats.objects.filter(
       unique_item_id=OuterRef("pk"),
