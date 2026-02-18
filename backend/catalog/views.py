@@ -100,11 +100,6 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
       )
     )
 
-
-    slot_param = (self.request.query_params.get("base_item__slot") or "").strip().lower()    
-    if not slot_param:
-      qs = qs.filter(base_item__slot="belt")
-
     return qs
 
   def get_serializer_class(self):

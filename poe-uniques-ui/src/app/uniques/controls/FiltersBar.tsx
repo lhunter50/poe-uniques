@@ -1,4 +1,5 @@
 const sortOptions = [
+  { label: "Default", value: "" },
   { label: "Name (A→Z)", value: "name" },
   { label: "Level (low→high)", value: "required_level" },
   { label: "Chaos value (high→low)", value: "-chaos_value" },
