@@ -17,6 +17,15 @@ export type UniqueItem = {
   chaos_value: string | null;
   divine_value: string | null;
   listing_count: number | null;
+
+  ancient_meta?: {
+    tier: number | null;
+    chance: number | null;
+    avg_orbs: number | null;
+    min_ilvl: number | null;
+    pool?: string | null;
+    source?: string | null;
+  }
 }
 
 export type Paginated<T> = {

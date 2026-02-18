@@ -1,4 +1,4 @@
-from django.db.models import Exists, OuterRef, Subquery
+from django.db.models import Exists, OuterRef, Subquery, F, Case, When, Value, IntegerField
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 from rest_framework.exceptions import ValidationError
@@ -9,7 +9,6 @@ from .serializers import (
   BaseItemSerializer,
   UniqueItemListSerializer,
   UniqueItemDetailSerializer,
-  
 )
 
 STANDARD_LEAGUE_NAME = "Standard"
@@ -50,9 +49,15 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
     "chaos_value",
     "divine_value",
     "listing_count",
+    "ancient_meta__tier"
   ]
   
-  ordering = ["name"]
+  ordering = [
+    "has_ancient",
+    F("ancient_meta__tier").asc(nulls_last=True),
+    F("chaos_value").desc(nulls_last=True),
+    "name"
+  ]
 
   def _get_league(self) -> League:
     league_name =(self.request.query_params.get("league") or "" ).strip()
@@ -86,6 +91,19 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
       divine_value=Subquery(stats_qs.values("divine_value")[:1]),
       listing_count=Subquery(stats_qs.values("listing_count")[:1]),
     )
+
+    qs = qs.annotate(
+      has_ancient=Case(
+          When(ancient_meta__isnull=False, then=Value(0)),
+          default=Value(1),
+          output_field=IntegerField(),
+      )
+    )
+
+
+    slot_param = (self.request.query_params.get("base_item__slot") or "").strip().lower()    
+    if not slot_param:
+      qs = qs.filter(base_item__slot="belt")
 
     return qs
 

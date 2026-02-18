@@ -1,7 +1,7 @@
 import type { UniqueItem } from "@/lib/types";
 import { PoEHeaderBar } from "./PoEHeaderBar";
-import { compactNumber } from "@/lib/format";
 import { PriceLine } from "./PriceLine";
+import { AncientMetaPanel } from "./AncientMetaPanel";
 
 export default function UniqueCard({ item }: { item: UniqueItem }) {
   const baseName = item.base_item?.name ?? "Unknown Base";
@@ -12,10 +12,30 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
   const chaos = item.chaos_value != null ? Number(item.chaos_value) : null;
   const divine = item.divine_value != null ? Number(item.divine_value) : null;
 
+  const ancient = item.ancient_meta ?? null;
+
+  const ancientTier = ancient?.tier != null ? `T${ancient.tier}` : null;
+  const ancientChance = ancient?.chance != null ? Number(ancient.chance) : null;
+  const ancientAvg = ancient?.avg_orbs != null ? Number(ancient.avg_orbs) : null;
+  const ancientMinIlvl = ancient?.min_ilvl != null ? Number(ancient.min_ilvl) : null;
+
+  const chancePct = ancientChance != null ? ancientChance * 100 : null;
+  const oneIn =
+    ancientChance != null && ancientChance > 0 ? Math.round(1 / ancientChance) : null;
+
+  // Only show the ancient panel if it has something meaningful
+  const showAncient =
+    ancient != null &&
+    (ancientTier != null ||
+      ancientChance != null ||
+      ancientAvg != null ||
+      ancientMinIlvl != null);
+
   return (
     <div
       className="
-        w-full max-w-105
+        w-full
+        max-w-105
         bg-[#0f1319]
         border border-amber-700/60
         shadow-[0_0_0_1px_rgba(0,0,0,0.6),0_16px_40px_rgba(0,0,0,0.55)]
@@ -30,16 +50,18 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
       {/* Body */}
       <div className="px-6 py-4 text-center">
         <div className="text-[14px] font-semibold text-zinc-200">
-          {String(itemClass).toUpperCase()}
-          {slot ? <span className="text-zinc-400/80">{" • "}{String(slot).toUpperCase()}</span> : null}
+          {itemClass.toUpperCase()}
+          {slot ? (
+            <span className="text-zinc-400/80">
+              {" "}
+              • {slot.toUpperCase()}
+            </span>
+          ) : null}
         </div>
 
         <div className="mt-3 space-y-1 text-[13px] leading-snug text-[#7FB6FF]">
           <div>
-            Required Level:{" "}
-            <span>
-              {item.required_level ?? "—"}
-            </span>
+            Required Level: <span>{item.required_level ?? "—"}</span>
           </div>
 
           <div>
@@ -47,14 +69,11 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
           </div>
 
           <div>
-            <PriceLine value={divine} icon="divine"/>
+            <PriceLine value={divine} icon="divine" />
           </div>
 
           <div>
-            Listings:{" "}
-            <span>
-              {item.listing_count ?? "—"}
-            </span>
+            Listings: <span>{item.listing_count ?? "—"}</span>
           </div>
         </div>
 
@@ -70,7 +89,6 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
               flex items-center justify-center
               bg-[#0b2a1f]
               border border-amber-700/40
-              
             "
           >
             {item.image_url ? (
@@ -80,7 +98,6 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
                 className="
                   max-h-[90%] max-w-[90%]
                   object-contain
-                  image-rendering-auto
                   drop-shadow-[0_0_8px_rgba(0,0,0,0.5)]
                 "
               />
@@ -109,13 +126,13 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
                   />
                 </div>
 
-                {/* Zoom preview */}
+                {/* Hover tooltip */}
                 <div
                   className="
                     absolute bottom-full left-1/2 -translate-x-1/2 mb-3
                     hidden group-hover:flex
                     flex-col items-center
-                    w-28
+                    w-32
                     px-3 py-3
                     bg-black/95
                     ring-1 ring-amber-600
@@ -136,19 +153,14 @@ export default function UniqueCard({ item }: { item: UniqueItem }) {
                 </div>
               </div>
             ) : null}
+
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.06),transparent_70%)]" />
           </div>
         </div>
 
-        {/* Flavour Text */}
-        {item.flavour_text && (
-          <>
-            <div className="my-4 h-px w-full bg-amber-700/30" />
-            <div className="text-[13px] italic tracking-wide text-amber-300/90">
-              {item.flavour_text}
-            </div>
-          </>
-        )}
+        <div className="my-4 h-px w-full bg-amber-700/30" />
+
+        <AncientMetaPanel ancient={item.ancient_meta ?? null} reserveSpace />
       </div>
     </div>
   );

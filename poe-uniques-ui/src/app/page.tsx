@@ -16,7 +16,7 @@ export default async function Home({
 
   const page = qp(params.page) ?? "1";
   const search = qp(params.search) ?? "";
-  const ordering = qp(params.ordering) ?? "name";
+  const ordering = qp(params.ordering) ?? "";
   const league = qp(params.league) ?? "";
 
   const data = await getUniques({ page, search, ordering, league });
