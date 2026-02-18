@@ -126,9 +126,15 @@ STATIC_URL = 'static/'
 
 
 REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_CLASSES": [
+      "rest_framework.throttling.AnonRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+      "anon": "60/min",
+    },
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 50,
+    "PAGE_SIZE": 18,
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

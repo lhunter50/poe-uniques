@@ -19,7 +19,7 @@ export default async function Home({
   const ordering = qp(params.ordering) ?? "";
   const league = qp(params.league) ?? "";
 
-  const data = await getUniques({ page, search, ordering, league });
+  const data = await getUniques({ page, search, ordering, league, });
 
   return (
     <PageShell>

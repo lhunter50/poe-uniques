@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
 from .models import BaseItem, UniqueItem, UniqueItemLeaguePresence, League, UniqueItemLeagueStats
 from .serializers import (
@@ -12,6 +13,10 @@ from .serializers import (
 )
 
 STANDARD_LEAGUE_NAME = "Standard"
+
+class UniquePagination(PageNumberPagination):
+  page_size = 18
+
 
 def get_current_league() -> str:
   # For now I will use this, will be able to update this do auto detect current leagues
@@ -33,6 +38,7 @@ class BaseItemViewSet(viewsets.ReadOnlyModelViewSet):
 class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
   queryset = UniqueItem.objects.select_related("base_item").all().order_by("name")
   filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+  pagination_class = UniquePagination
 
   filterset_fields = {
     "base_item": ["exact"],

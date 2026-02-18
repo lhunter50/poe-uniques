@@ -20,7 +20,7 @@ export async function getUniques(params:UniqueQuery): Promise<Paginated<UniqueIt
 
   const url = `${base}/api/uniques/?${qs.toString()}`;
 
-  const res = await fetch(url, { cache: "no-store"});
+  const res = await fetch(url, { next: { revalidate: 60 * 30 }, });
   if (!res.ok) {
     throw new Error(`Failed to fetch uniques: ${res.status} ${res.statusText}`)
   }
