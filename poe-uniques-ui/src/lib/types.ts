@@ -33,6 +33,9 @@ export type Paginated<T> = {
   next: string | null;
   previous: string | null;
   results: T[];
+  meta?: {
+    league?: LeagueMeta;
+  }
 }
 
 export type UniqueQuery = { 
@@ -40,4 +43,9 @@ export type UniqueQuery = {
   search?: string;
   ordering?: string;
   league?: string;
+}
+
+export type LeagueMeta = {
+  id: number;
+  name: string;
 }

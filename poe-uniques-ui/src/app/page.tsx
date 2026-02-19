@@ -21,9 +21,12 @@ export default async function Home({
 
   const data = await getUniques({ page, search, ordering, league, });
 
+  const effectiveLeague = data.meta?.league?.name ?? league ?? "";
+
+
   return (
     <PageShell>
-      <Navbar league={league} />
+      <Navbar league={effectiveLeague} />
 
       <SearchStrip
         shown={data.results.length}

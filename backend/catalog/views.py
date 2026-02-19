@@ -2,6 +2,7 @@ from django.db.models import Exists, OuterRef, Subquery, F, Case, When, Value, I
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
 
@@ -12,13 +13,10 @@ from .serializers import (
   UniqueItemDetailSerializer,
 )
 
-STANDARD_LEAGUE_NAME = "Standard"
-
 class UniquePagination(PageNumberPagination):
   page_size = 18
 
-
-def get_current_league() -> str:
+def get_current_league() -> League:
   # For now I will use this, will be able to update this do auto detect current leagues
   league = League.objects.filter(is_active=True).first()
 
@@ -48,6 +46,7 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
   }
 
   search_fields = ["name", "base_item__name"]
+
   ordering_fields = [
     "name", 
     "required_level", 
@@ -71,6 +70,27 @@ class UniqueItemViewSet(viewsets.ReadOnlyModelViewSet):
       return get_object_or_404(League, name=league_name)
     
     return get_current_league()
+  
+  def list (self, request, *args, **kwargs):
+    league = self._get_league()
+
+    queryset = self.filter_queryset(self.get_queryset())
+
+    page = self.paginate_queryset(queryset)
+    if page is not None:
+      serializer = self.get_serializer(page, many=True)
+      resp = self.get_paginated_response(serializer.data)
+
+      resp.data["meta"] = {
+        "league": {"id": league.id, "name": league.name}
+      }
+      return resp
+    
+    serializer = self.get_serializer(queryset, many=True)
+    return Response({
+      "meta": {"league": {"id": league.id, "name": league.name}},
+      "results": serializer.data
+    })
 
   def get_queryset(self):
     """

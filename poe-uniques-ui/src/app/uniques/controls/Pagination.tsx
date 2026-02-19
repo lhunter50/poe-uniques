@@ -1,12 +1,11 @@
 function buildHref(params: {
   page: number;
-  league: string;
+
   search: string;
   ordering: string;
 }) {
   const qs = new URLSearchParams();
   qs.set("page", String(params.page));
-  qs.set("league", params.league);
   if (params.search) qs.set("search", params.search);
   if (params.ordering) qs.set("ordering", params.ordering);
   return `/?${qs.toString()}`;
@@ -31,7 +30,7 @@ export default function Pagination({
     <div className="flex items-center gap-4 mt-6">
       {hasPrev ? (
         <a
-          href={buildHref({ page: Math.max(1, page - 1), league, search, ordering })}
+          href={buildHref({ page: Math.max(1, page - 1), search, ordering })}
           className="text-blue-600 hover:underline"
         >
           ← Prev
@@ -44,7 +43,7 @@ export default function Pagination({
 
       {hasNext ? (
         <a
-          href={buildHref({ page: page + 1, league, search, ordering })}
+          href={buildHref({ page: page + 1, search, ordering })}
           className="text-blue-600 hover:underline"
         >
           Next →

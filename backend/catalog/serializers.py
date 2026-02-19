@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BaseItem, UniqueItem, UniqueAncientMeta
+from .models import BaseItem, UniqueItem, UniqueAncientMeta, League
 
 class BaseItemSerializer(serializers.ModelSerializer):
   class Meta:
